@@ -1,0 +1,255 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "FULL PIPELINE (all stages, full data)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/run_pipeline.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--train-frac",
+        "0.3"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 0: normalize (2% dev sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage0_normalize.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--data",
+        "../../dataset",
+        "--work",
+        "../../work",
+        "--sample-pct",
+        "2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 0: report (2% dev sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage0_report.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 0: normalize (FULL data)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage0_normalize.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--data",
+        "../../dataset",
+        "--work",
+        "../../work"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 1: blocking train (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage1_blocking.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--split",
+        "train",
+        "--suffix",
+        "_s2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 1: eval recall (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage1_eval.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 1: train pre-ranker (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage1_prerank.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--mode",
+        "train",
+        "--suffix",
+        "_s2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 1: blocking test (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage1_blocking.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--split",
+        "test",
+        "--suffix",
+        "_s2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 1: apply pre-ranker test (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage1_prerank.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--mode",
+        "apply",
+        "--split",
+        "test",
+        "--suffix",
+        "_s2",
+        "--k",
+        "25"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 2: features train (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage2_matcher.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2",
+        "--step",
+        "features",
+        "--split",
+        "train"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 2: train matcher (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage2_matcher.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2",
+        "--step",
+        "train"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 2: features test (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage2_matcher.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2",
+        "--step",
+        "features",
+        "--split",
+        "test"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 2: predict test (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage2_matcher.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2",
+        "--step",
+        "predict"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Full pipeline on 2% sample",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/run_pipeline.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--sample-pct",
+        "2"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 3: tune (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage3_decide.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2",
+        "--mode",
+        "tune"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Stage 3: apply test (2% sample)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/code/business_entity_resolution/src/stage3_decide.py",
+      "cwd": "${workspaceFolder}/code/business_entity_resolution",
+      "args": [
+        "--work",
+        "../../work",
+        "--suffix",
+        "_s2",
+        "--mode",
+        "apply"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
